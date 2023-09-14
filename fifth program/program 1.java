@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-public class facebookAutomation {
+public class program1 {
 
     public static void main(String[] args) {
         HashMap<String, String> credentials = new HashMap<String, String>();
