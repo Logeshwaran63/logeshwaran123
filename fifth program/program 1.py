@@ -1,48 +1,19 @@
-from selenium import webdriver
-from time import sleep
-from webdriver_manager import driver
-from webdriver_manager.chrome import ChromeDriverManager
-import pyautogui
+import java.util.HashMap;
 
+public class facebookAutomation {
 
-def login():
-    user_ID = input("Enter your email id: ")
-    user_PWD = input("Enter the password: ")
+    public static void main(String[] args) {
+        HashMap<String, String> credentials = new HashMap<String, String>();
 
-    driver = webdriver.Chrome(ChromeDriverManager().install())
-    driver.get("https://www.facebook.com/")
+        singUp singUp = new singUp();
 
-    username_box = driver.find_element_by_name('email')  # matching email id
-    username_box.send_keys(user_ID)
-    print('Sending email id...')
+        credentials.put("fname","Mr");
+        credentials.put("lname","Automa");
+        credentials.put("day","19");
+        credentials.put("month", "Sep");
+        credentials.put("year","1990");
 
-    sleep(1)
+        singUp.doAtumation(credentials);
 
-    userPass = driver.find_element_by_name('pass')  # matching password
-    userPass.send_keys(user_PWD)
-    print('Sending email password...')
-
-    sleep(1)
-    # loggin button through inspect element
-    loginnow = driver.find_element_by_id('u_0_b')
-    loginnow.submit()
-
-    print('Looged in')
-    sleep(1)
-    # exit()
-
-
-def comment(userinput):
-    # userinput = "Comenting jsut for fun!"
-    pyautogui.typewrite(userinput)
-    pyautogui.typewrite("/n")
-    print("Done")
-
-
-login()
-user = input("Press Y to comment on random post or N to exit.")
-if user is "y":
-    user = input("Type your comment: ")
-    comment(user)
-else:
-    exit()
+    }
+}
