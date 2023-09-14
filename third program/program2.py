@@ -1,137 +1,128 @@
-import datetime
-from termcolor import cprint
+import java.util.ArrayList;
+import java.util.List;
 
+public class HealthcareManagementSystem {
 
-def lock_data():
-    user1_name = input('Enter the name of first user\n')
-    user2_name = input('Enter the name of secound user\n')
-    user3_name = input('Enter the name of third user')
-    user_inp = int(input("Press 1 to lock Exercise or 2 for lock Diet.\n"))
-    if user_inp is 1:
-        user_input_exercise = int(input(
+    private List<Patient> patients;
+    private List<Doctor> doctors;
+    private List<Appointment> appointments;
 
-            f"press 1 to lock Exercise of {user1_name}.\npress 2 to lock Exercise of {user2_name}.\npress 3 to lock Exercise of {user3_name}.\n"))
+    public HealthcareManagementSystem() {
+        this.patients = new ArrayList<>();
+        this.doctors = new ArrayList<>();
+        this.appointments = new ArrayList<>();
+    }
 
-        if user_input_exercise is 1:
-            exercise_data_user1 = input(
-                f"Enter the Exercise you want to lock for {user1_name}.\n")
-            with open(f"{user1_name}_exercise.txt", 'a') as f:
-                f.write(
-                    f"{exercise_data_user1} Done at {datetime.datetime.now()}\n")
-                print("Exercise locked successfully\n")
+    public void addPatient(Patient patient) {
+        this.patients.add(patient);
+    }
 
-        elif user_input_exercise is 2:
-            exercise_data_user2 = input(
-                f"Enter the Exercise you want to lock for {user2_name}.\n")
+    public void addDoctor(Doctor doctor) {
+        this.doctors.add(doctor);
+    }
 
-            with open(f"{user2_name}_exercise.txt", 'a') as alfa:
+    public void scheduleAppointment(Appointment appointment) {
+        this.appointments.add(appointment);
+    }
 
-                alfa.write(
-                    f"{exercise_data_user2} Done at {datetime.datetime.now()}\n")
+    public List<Patient> getPatients() {
+        return this.patients;
+    }
 
-                print("Exercise locked successfully.\n")
+    public List<Doctor> getDoctors() {
+        return this.doctors;
+    }
 
-        elif user_input_exercise is 3:
-            exercise_data_user3 = input(
-                f"Enter the exercise you want to lock for {user3_name}.\n")
-            with open(f"{user3_name}_exercise.txt", 'a') as file:
-                file.write(
-                    f"{exercise_data_user3} Done at {datetime.datetime.now()}\n")
+    public List<Appointment> getAppointments() {
+        return this.appointments;
+    }
 
-                print("Exercise locked successfully\n")
+    public static void main(String[] args) {
+        HealthcareManagementSystem system = new HealthcareManagementSystem();
 
-        else:
-            print("Something Wrong! Please check your input.")
+        // Add some patients and doctors to the system.
+        Patient patient1 = new Patient("John Doe", 30);
+        Patient patient2 = new Patient("Jane Doe", 25);
+        Doctor doctor1 = new Doctor("Dr. Smith", "Cardiology");
+        Doctor doctor2 = new Doctor("Dr. Jones", "Orthopedics");
+        system.addPatient(patient1);
+        system.addPatient(patient2);
+        system.addDoctor(doctor1);
+        system.addDoctor(doctor2);
 
-    elif user_inp is 2:
+        // Schedule an appointment for patient1 with doctor1.
+        Appointment appointment = new Appointment(patient1, doctor1, "2023-09-15T10:00:00Z");
+        system.scheduleAppointment(appointment);
 
-        user_input_lock = int(input(
-            f"press 1 to lock diet of Harry.\npress 2 to lock diet of {user2_name}.\npress 3 to lock diet of {user3_name}.\n"))
+        // Get a list of all patients.
+        List<Patient> patients = system.getPatients();
 
-        if user_input_lock is 1:
+        // Print the names of all patients.
+        for (Patient patient : patients) {
+            System.out.println(patient.getName());
+        }
+    }
+}
 
-            diet_data_user1 = input(
-                "Enter the diet you want to lock for Harry.\n")
-            with open("user1_diet.txt", 'a') as f:
-                f.write(f"{diet_data_user1} ate at {datetime.datetime.now()}\n")
-                print("Diet locked successfully\n")
-        elif user_input_lock is 2:
-            diet_data_user2 = input(
+class Patient {
 
-                f"Enter the diet you want to lock for {user2_name}.\n")
-            with open("user2_diet.txt", 'a') as alfa:
-                alfa.write(
-                    f"{diet_data_user2} ate at {datetime.datetime.now()}\n")
-                print("Diet locked successfully\n")
-        elif user_input_lock is 3:
-            diet_data_user3 = input(
+    private String name;
+    private int age;
 
-                f"Enter the diet you want to lock for {user3_name}.\n")
+    public Patient(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
 
-            with open("user3_diet.txt", 'a') as file:
-                file.write(
-                    f"{diet_data_user3} ate at {datetime.datetime.now()}\n")
-                print("Diet locked successfully\n")
+    public String getName() {
+        return this.name;
+    }
 
-        else:
-            print("Something Wrong! Please check your input.")
+    public int getAge() {
+        return this.age;
+    }
+}
 
-    else:
-        print("Something Wrong! Please check your input.")
+class Doctor {
 
-    again_lock()
+    private String name;
+    private String specialty;
 
+    public Doctor(String name, String specialty) {
+        this.name = name;
+        this.specialty = specialty;
+    }
 
-def retrieve():
-    user_input_retrieve = int(input(
-        f"press 1 to retrieve diet of first.\npress 2 to retrieve diet of secound.\npress 3 to retrieve diet of third.\n"))
-    if user_input_retrieve is 1:
-        with open("user1_diet.txt") as f:
-            print("\t\t Recent Diets-\n")
-            print(f.read())
+    public String getName() {
+        return this.name;
+    }
 
-    elif user_input_retrieve is 2:
-        with open("user2_diet.txt") as file2:
-            print("\t\t Recent Diets-\n")
-            print(file2.read())
+    public String getSpecialty() {
+        return this.specialty;
+    }
+}
 
-    elif user_input_retrieve is 3:
-        with open("user3_diet.txt") as file3:
-            print("\t\t Recent Diets-\n")
-            print(file3.read())
-    again_retrieve()
+class Appointment {
 
+    private Patient patient;
+    private Doctor doctor;
+    private LocalDateTime dateAndTime;
 
-def again_lock():
-    user_again = int(
-        input("Want to lock more?\nPress 1 to lock more or 2 to exit.\n"))
-    if user_again is 1:
-        lock_data()
-    else:
-        print("\t\t Thank You!")
+    public Appointment(Patient patient, Doctor doctor, LocalDateTime dateAndTime) {
+        this.patient = patient;
+        this.doctor = doctor;
+        this.dateAndTime = dateAndTime;
+    }
 
+    public Patient getPatient() {
+        return this.patient;
+    }
 
-def again_retrieve():
-    user_again_2 = int(
-        input("Want to retrieve more?\nPress 1 to retrieve more or 2 to exit.\n"))
-    if user_again_2 is 1:
-        retrieve()
-    else:
-        print("\t\t Thank You!")
+    public Doctor getDoctor() {
+        return this.doctor;
+    }
 
-
-if __name__ == "__main__":
-    cprint("#" * 50, "magenta")
-    cprint((f"Health Mangaement System ").center(50), "yellow")
-    cprint("#" * 50, "magenta")
-    user_input = int(input(
-        "What you want to do. Lock data or retrieve data?\nPress 1 to lock and 2 for retrieve.\n"))
-
-    if user_input is 1:
-        lock_data()
-
-    elif user_input is 2:
-        retrieve()
-
-    else:
-        print("Wrong input")
+    public LocalDateTime getDateAndTime() {
+        return this.dateAndTime;
+    }
+}
